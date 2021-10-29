@@ -18,7 +18,7 @@ SELECT *
 -- Get all the users with Calvin email addresses.
 SELECT *
   FROM Player
- WHERE emailAddress LIKE '%calvin%'
+ WHERE email LIKE '%calvin%'
  ;
 
 -- Get the highest score ever recorded.
