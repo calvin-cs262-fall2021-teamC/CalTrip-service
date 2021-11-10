@@ -1,0 +1,26 @@
+{
+  "name": "CalTrip-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "caltripDirect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node caltripService.js",
+    "start-direct": "node caltripDirect.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calvin-cs262-fall2021-teamC/CalTrip-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calvin-cs262-fall2021-teamC/CalTrip-service/issues"
+  },
+  "homepage": "https://github.com/calvin-cs262-fall2021-teamC/CalTrip-service#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg-promise": "^10.11.1"
+  }
+}
