@@ -42,7 +42,7 @@ CREATE TABLE UserTrip (
     );    
 
 -- Allow users to select data from the tables.
-GRANT SELECT ON eUser TO PUBLIC;
+GRANT SELECT ON TheUser TO PUBLIC;
 GRANT SELECT ON TheEvent TO PUBLIC;
 GRANT SELECT ON Trip TO PUBLIC;
 GRANT SELECT ON UserTrip TO PUBLIC;

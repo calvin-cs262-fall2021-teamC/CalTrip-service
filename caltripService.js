@@ -44,14 +44,6 @@ router.get("/events/:id", readEvent);
 router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
 
-// router.get("/players", readPlayers);
-// router.get("/players/:id", readPlayer);
-// // view player personal record
-// router.get("/players/:id/pr", readPlayerPR)
-// router.put("/players/:id", updatePlayer);
-// router.post('/players', createPlayer);
-// router.delete('/players/:id', deletePlayer);
-
 app.use(router);
 app.use(errorHandler);
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -118,7 +110,7 @@ function updateEvent(req, res, next) {
 }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(name, description, location, price) VALUES (${name}, ${description}, ${location}, ${price}) RETURNING id', req.body)
+    db.one('INSERT INTO TheEvent(id, name, description, location, price) VALUES (${id}, ${name}, ${description}, ${location}, ${price}) RETURNING id, name, description, location, price', req.body)
         .then(data => {
             res.send(data);
         })
@@ -126,63 +118,3 @@ function createEvent(req, res, next) {
             next(err);
         });
 }
-
-// function readPlayers(req, res, next) {
-//     db.many("SELECT * FROM Player")
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         })
-// }
-
-// function readPlayer(req, res, next) {
-//     db.oneOrNone('SELECT * FROM Player WHERE id=${id}', req.params)
-//         .then(data => {
-//             returnDataOr404(res, data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
-
-// function readPlayerPR(req, res, next) {
-//     db.many("SELECT MAX(score) FROM Player, PlayerGame WHERE Player.ID = PlayerGame.playerID AND Player.ID = ${id} GROUP BY Player.ID, PlayerGame.playerID", req.params)
-//     .then(data => {
-//         res.send(data);
-//     })
-//     .catch(err => {
-//             next(err);
-//     });
-// }
-
-// function updatePlayer(req, res, next) {
-//     db.oneOrNone('UPDATE Player SET email=${body.email}, name=${body.name} WHERE id=${params.id} RETURNING id', req)
-//         .then(data => {
-//             returnDataOr404(res, data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
-
-// function createPlayer(req, res, next) {
-//     db.one('INSERT INTO Player(email, name) VALUES (${email}, ${name}) RETURNING id', req.body)
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
-
-// function deletePlayer(req, res, next) {
-//     db.oneOrNone('DELETE FROM Player WHERE id=${id} RETURNING id', req.params)
-//         .then(data => {
-//             returnDataOr404(res, data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
