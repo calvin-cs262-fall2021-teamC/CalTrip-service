@@ -11,7 +11,7 @@ SELECT *
   ;
 
 -- Get the name of events that are free
-SELECT name
+SELECT title
     FROM TheEvent
     WHERE price = 0
     ;

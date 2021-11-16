@@ -21,7 +21,7 @@ CREATE TABLE TheUser (
 
 CREATE TABLE TheEvent (
     ID integer PRIMARY KEY,
-    name varchar(50),
+    title varchar(50),
     description varchar(300),
     location varchar(50),
     price integer
