@@ -99,18 +99,18 @@ function readEvent(req, res, next) {
         });
 }
 
-function updateEvent(req, res, next) {
-    db.oneOrNone('UPDATE Event SET name=${body.name}, description=${body.description}, location=${body.location}, price=${body.price} WHERE id=${params.id} RETURNING id', req)
-        .then(data => {
-            returnDataOr404(res, data);
-        })
-        .catch(err => {
-            next(err);
-        });
-}
+// function updateEvent(req, res, next) {
+//     db.oneOrNone('UPDATE Event SET name=${body.name}, description=${body.description}, location=${body.location}, price=${body.price} WHERE id=${params.id} RETURNING id', req)
+//         .then(data => {
+//             returnDataOr404(res, data);
+//         })
+//         .catch(err => {
+//             next(err);
+//         });
+// }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(id, name, description, location, price) VALUES (${id}, ${name}, ${description}, ${location}, ${price}) RETURNING id, name, description, location, price', req.body)
+    db.one('INSERT INTO TheEvent(id, title, description, location, price) VALUES (${id}, ${title}, ${description}, ${location}, ${price}) RETURNING id, title, description, location, price', req.body)
         .then(data => {
             res.send(data);
         })
