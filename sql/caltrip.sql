@@ -13,14 +13,14 @@ DROP TABLE IF EXISTS TheEvent;
 
 -- Create the schema.
 CREATE TABLE TheUser (
-	ID varchar(50) PRIMARY KEY, 
+	ID SERIAL PRIMARY KEY, 
 	name varchar(50),
     emailAddress varchar(50) NOT NULL,
     password varchar(50)
 	);
 
 CREATE TABLE TheEvent (
-    ID varchar(50) PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     title varchar(50),
     description varchar(300),
     location varchar(50),
@@ -28,7 +28,7 @@ CREATE TABLE TheEvent (
     );
 
 CREATE TABLE Trip (
-    ID varchar(50) PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     eventID varchar(50) REFERENCES TheEvent(ID),
     userID varchar(50) REFERENCES TheUser(ID),
     seats varchar(50),
@@ -48,18 +48,18 @@ GRANT SELECT ON Trip TO PUBLIC;
 GRANT SELECT ON UserTrip TO PUBLIC;
 
 -- Add sample records.
-INSERT INTO TheUser VALUES ('1', 'Kun Kang', 'kk58@students.calvin.edu', 'chestnutkk99');
-INSERT INTO TheUser VALUES ('2', 'John White', 'jmw75@students.calvin.edu', 'black12345');
-INSERT INTO TheUser VALUES ('3', 'YK Choi', 'yc55@students.calvin.edu', '1357why');
+INSERT INTO TheUser VALUES (1, 'Kun Kang', 'kk58@students.calvin.edu', 'chestnutkk99');
+INSERT INTO TheUser VALUES (2, 'John White', 'jmw75@students.calvin.edu', 'black12345');
+INSERT INTO TheUser VALUES (3, 'YK Choi', 'yc55@students.calvin.edu', '1357why');
 
-INSERT INTO TheEvent VALUES ('1', 'Skiing', 'Are you ready to go skiing?','Grand Haven', '20');
-INSERT INTO TheEvent VALUES ('2', 'Parade of Lights', 'Santa arrives escorted by bands, floats, trucks and family and friends, all decked out in thousands of sparkling holiday lights!', 'Holland', '0');
-INSERT INTO TheEvent VALUES ('3', 'Comic-con', 'Come dress up like the geek you really are!', 'DeVos Place', '30');
+INSERT INTO TheEvent VALUES (1, 'Skiing', 'Are you ready to go skiing?','Grand Haven', '20');
+INSERT INTO TheEvent VALUES (2, 'Parade of Lights', 'Santa arrives escorted by bands, floats, trucks and family and friends, all decked out in thousands of sparkling holiday lights!', 'Holland', '0');
+INSERT INTO TheEvent VALUES (3, 'Comic-con', 'Come dress up like the geek you really are!', 'DeVos Place', '30');
 
-INSERT INTO Trip VALUES ('1', '1', '2', '6', '2021-12-20 12:00:00');
-INSERT INTO Trip VALUES ('2', '2', '2', '4', '2021-11-30 23:30:00');
-INSERT INTO Trip VALUES ('3', '3', '3', '4', '2021-11-12 18:00:00');
-INSERT INTO Trip VALUES ('4', '3', '3', '3', '2021-11-13 10:30:00');
+INSERT INTO Trip VALUES (1, '1', '2', '6', '2021-12-20 12:00:00');
+INSERT INTO Trip VALUES (2, '2', '2', '4', '2021-11-30 23:30:00');
+INSERT INTO Trip VALUES (3, '3', '3', '4', '2021-11-12 18:00:00');
+INSERT INTO Trip VALUES (4, '3', '3', '3', '2021-11-13 10:30:00');
 
 INSERT INTO UserTrip VALUES ('1', '2', 'driver');
 INSERT INTO UserTrip VALUES ('2', '1', 'rider');
