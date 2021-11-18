@@ -29,15 +29,15 @@ CREATE TABLE TheEvent (
 
 CREATE TABLE Trip (
     ID SERIAL PRIMARY KEY,
-    eventID integer REFERENCES TheEvent(ID),
-    userID integer REFERENCES TheUser(ID),
+    eventID SERIAL REFERENCES TheEvent(ID),
+    userID SERIAL REFERENCES TheUser(ID),
     seats varchar(50),
     date timestamp
     );
 
 CREATE TABLE UserTrip (
-    tripID integer REFERENCES Trip(ID),
-    userID integer REFERENCES TheUser(ID),
+    tripID SERIAL REFERENCES Trip(ID),
+    userID SERIAL REFERENCES TheUser(ID),
     userStatus varchar(50)
     );    
 
