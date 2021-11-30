@@ -43,6 +43,7 @@ router.get("/events/:id", readEvent);
 
 // router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
+router.post("/users", createUser);
 
 app.use(router);
 app.use(errorHandler);
@@ -77,6 +78,16 @@ function readUsers(req, res, next) {
         .catch(err => {
             next(err);
         })
+}
+
+function createUser(req, res, next) {
+    db.one('INSERT INTO TheUser(firstName, lastName, emailAddress, password) VALUES (${firstName}, ${lastName}, ${emailAddress}, ${password}) RETURNING id, firstName, lastName, emailAddress, password', req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err);
+        });
 }
 
 function readEvents(req, res, next) {

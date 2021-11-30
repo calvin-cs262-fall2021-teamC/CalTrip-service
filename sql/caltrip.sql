@@ -14,9 +14,10 @@ DROP TABLE IF EXISTS TheEvent;
 -- Create the schema.
 CREATE TABLE TheUser (
 	ID SERIAL PRIMARY KEY, 
-	name varchar(50),
+	firstName varchar(50) NOT NULL,
+    lastName varchar(50) NOT NULL,
     emailAddress varchar(50) NOT NULL,
-    password varchar(50)
+    password varchar(50) NOT NULL
 	);
 
 CREATE TABLE TheEvent (
