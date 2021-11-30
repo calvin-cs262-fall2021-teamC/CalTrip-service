@@ -24,6 +24,8 @@ CREATE TABLE TheEvent (
     ID SERIAL PRIMARY KEY,
     title varchar(50),
     description varchar(300),
+    startDate date,
+    endDate date,
     location varchar(50),
     price varchar(50),
     category integer
@@ -33,8 +35,7 @@ CREATE TABLE Trip (
     ID SERIAL PRIMARY KEY,
     eventID integer REFERENCES TheEvent(ID),
     userID integer REFERENCES TheUser(ID),
-    seats varchar(50),
-    date timestamp
+    seats varchar(50)
     );
 
 CREATE TABLE UserTrip (

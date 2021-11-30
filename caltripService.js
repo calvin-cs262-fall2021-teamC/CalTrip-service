@@ -121,7 +121,7 @@ function readEvent(req, res, next) {
 // }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(title, description, location, price, category) VALUES (${title}, ${description}, ${location}, ${price}, ${category} ) RETURNING id, title, description, location, price, category', req.body)
+    db.one('INSERT INTO TheEvent(title, description, startDate, endDate, location, price, category) VALUES (${title}, ${description}, ${startDate}, ${endDate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, location, price, category', req.body)
         .then(data => {
             res.send(data);
         })
