@@ -24,8 +24,8 @@ CREATE TABLE TheEvent (
     ID SERIAL PRIMARY KEY,
     title varchar(50),
     description varchar(300),
-    startDate date,
-    endDate date,
+    startDate integer,
+    endDate integer,
     location varchar(50),
     price varchar(50),
     category integer

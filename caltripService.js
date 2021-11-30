@@ -91,7 +91,7 @@ function createUser(req, res, next) {
 }
 
 function readEvents(req, res, next) {
-    db.many("SELECT * FROM TheEvent")
+    db.many("SELECT * FROM TheEvent ORDER BY startDate ASC")
         .then(data => {
             res.send(data);
         })
@@ -121,7 +121,7 @@ function readEvent(req, res, next) {
 // }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(title, description, startDate, endDate, location, price, category) VALUES (${title}, ${description}, ${startDate}, ${endDate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, location, price, category', req.body)
+    db.one('INSERT INTO TheEvent(title, description, startDate, endDate, location, price, category) VALUES (${title}, ${description}, ${startDate}, ${endDate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, startDate, endDate, location, price, category', req.body)
         .then(data => {
             res.send(data);
         })
