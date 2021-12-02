@@ -23,14 +23,7 @@ SELECT TheUser.name, emailAddress
 
 -- Get a list of all the drivers
 SELECT name
-    FROM TheUser, UserTrip
-    WHERE TheUser.ID = UserTrip.userID
-    AND userStatus = 'driver'
-    ;
+    FROM TheUser, JoinedUser
+    WHERE TheUser.ID = JoinedUser.userID
+    AND status = 'driver'
 
--- Get users who are attending an event on 2021-11-13 10:30:00
-SELECT name
-    FROM TheUser, UserTrip, Trip
-    WHERE TheUser.ID = UserTrip.userID
-        AND UserTrip.tripID = Trip.ID
-        AND date = '2021-11-13 10:30:00'
