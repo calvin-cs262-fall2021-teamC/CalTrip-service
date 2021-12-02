@@ -39,11 +39,14 @@ router.use(express.json());
 router.get("/", readHelloMessage);
 router.get("/users", readUsers);
 router.get("/events", readEvents);
+// router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
 
 // router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
 router.post("/users", createUser);
+// router.post("/events/:id/users", createJoinedUsers);
+
 
 app.use(router);
 app.use(errorHandler);
@@ -110,10 +113,30 @@ function readEvent(req, res, next) {
         });
 }
 
+// function readJoinedUsers(req, res, next) {      // user.firstlastname
+//     db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
+//         .then(data => {
+//             returnDataOr404(res, data);
+//         })
+//         .catch(err => {
+//             next(err);
+//         });
+// }
+
 // function updateEvent(req, res, next) {
 //     db.oneOrNone('UPDATE Event SET name=${body.name}, description=${body.description}, location=${body.location}, price=${body.price} WHERE id=${params.id} RETURNING id', req)
 //         .then(data => {
 //             returnDataOr404(res, data);
+//         })
+//         .catch(err => {
+//             next(err);
+//         });
+// }
+
+// function createJoinedUsers(req, res, next) {
+//     db.one('INSERT INTO JoinedUser(status, seats) VALUES (${userID}, ${status}, ${seats} ) RETURNING id, userID, status, seats', req.body)
+//         .then(data => {
+//             res.send(data);
 //         })
 //         .catch(err => {
 //             next(err);

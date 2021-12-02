@@ -1,13 +1,12 @@
 --
 -- This SQL script builds a CalTrip database, deleting any pre-existing version.
 --
--- @author yy36
--- @date October 27, 2021
+-- @author yy36, kk58
+-- @date December 01, 2021
 --
 
 -- Drop previous versions of the tables if they they exist, in reverse order of foreign keys.
-DROP TABLE IF EXISTS UserTrip;
-DROP TABLE IF EXISTS Trip;
+DROP TABLE IF EXISTS JoinedUser;
 DROP TABLE IF EXISTS TheUser;
 DROP TABLE IF EXISTS TheEvent;
 
@@ -22,33 +21,26 @@ CREATE TABLE TheUser (
 
 CREATE TABLE TheEvent (
     ID SERIAL PRIMARY KEY,
-    title varchar(50),
-    description varchar(300),
-    startDate integer,
-    endDate integer,
-    location varchar(50),
-    price varchar(50),
+    title varchar(50) NOT NULL,
+    description varchar(300) NOT NULL,
+    startDate integer NOT NULL,
+    endDate integer NOT NULL,
+    location varchar(50) NOT NULL,
+    price varchar(50) NOT NULL,
     category integer
     );
 
-CREATE TABLE Trip (
+CREATE TABLE JoinedUser (
     ID SERIAL PRIMARY KEY,
-    eventID integer REFERENCES TheEvent(ID),
     userID integer REFERENCES TheUser(ID),
-    seats varchar(50)
-    );
-
-CREATE TABLE UserTrip (
-    tripID integer REFERENCES Trip(ID),
-    userID integer REFERENCES TheUser(ID),
-    userStatus varchar(50)
-    );    
+    status varchar(50),                             -- rider or driver
+    seats integer
+);
 
 -- Allow users to select data from the tables.
 GRANT SELECT ON TheUser TO PUBLIC;
 GRANT SELECT ON TheEvent TO PUBLIC;
-GRANT SELECT ON Trip TO PUBLIC;
-GRANT SELECT ON UserTrip TO PUBLIC;
+GRANT SELECT ON JoinedUser TO PUBLIC;
 
 -- Lists the Event schema created
 SELECT COUNT(*) FROM TheEvent; 			-- Returns the number of records
