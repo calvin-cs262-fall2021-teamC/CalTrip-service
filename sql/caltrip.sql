@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS TheEvent;
 
 -- Create the schema.
 CREATE TABLE TheUser (
-	ID SERIAL PRIMARY KEY, 
+	ID SERIAL PRIMARY KEY,
 	firstName varchar(50) NOT NULL,
     lastName varchar(50) NOT NULL,
     emailAddress varchar(50) NOT NULL,
@@ -33,6 +33,7 @@ CREATE TABLE TheEvent (
 CREATE TABLE JoinedUser (
     ID SERIAL PRIMARY KEY,
     userID integer REFERENCES TheUser(ID),
+		eventID integer REFERENCES TheEvent(ID),
     status varchar(50),                             -- rider or driver
     seats integer
 );
