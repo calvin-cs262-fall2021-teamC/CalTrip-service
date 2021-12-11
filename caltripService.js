@@ -39,7 +39,7 @@ router.use(express.json());
 router.get("/", readHelloMessage);
 router.get("/users", readUsers);
 router.get("/events", readEvents);
-// router.get("/events/:id/users", readJoinedUsers);
+router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
 
 // router.put("/events/:id", updateEvent);
@@ -113,15 +113,15 @@ function readEvent(req, res, next) {
         });
 }
 
-// function readJoinedUsers(req, res, next) {      // user.firstlastname
-//     db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
-//         .then(data => {
-//             returnDataOr404(res, data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
+function readJoinedUsers(req, res, next) {      // user.firstlastname
+    db.oneOrNone("SELECT * FROM JoinedUser WHERE id=${id}", req.params)
+        .then(data => {
+            returnDataOr404(res, data);
+        })
+        .catch(err => {
+            next(err);
+        });
+}
 
 // function updateEvent(req, res, next) {
 //     db.oneOrNone('UPDATE Event SET name=${body.name}, description=${body.description}, location=${body.location}, price=${body.price} WHERE id=${params.id} RETURNING id', req)
