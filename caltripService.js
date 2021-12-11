@@ -45,6 +45,7 @@ router.get("/events/:id", readEvent);
 // router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
 router.post("/users", createUser);
+router.post("/user", findUser);
 // router.post("/events/:id/users", createJoinedUsers);
 
 
@@ -151,4 +152,14 @@ function createEvent(req, res, next) {
         .catch(err => {
             next(err);
         });
+}
+
+function findUser(req, res, next) {
+  db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress} AND password=${password}', req.body)
+    .then(data => {      
+      returnDataOr404(res, data);
+    })
+    .catch(err => {
+        next(err);
+    });
 }
