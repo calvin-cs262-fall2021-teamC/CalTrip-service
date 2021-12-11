@@ -157,6 +157,7 @@ function createEvent(req, res, next) {
 function findUser(req, res, next) {
   db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress} AND password=${password}', req.body)
     .then(data => {
+      console.log(data);
       res.send(data);
     })
     .catch(err => {
