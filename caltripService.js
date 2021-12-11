@@ -158,7 +158,7 @@ function findUser(req, res, next) {
   db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress} AND password=${password}', req.body)
     .then(data => {
       console.log(data);
-      res.returnDataOr404(data);
+      returnDataOr404(data);
     })
     .catch(err => {
         next(err);
