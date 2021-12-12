@@ -107,7 +107,7 @@ function readEvents(req, res, next) {
 function readEvent(req, res, next) {
     db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
-            res.send(data);
+            returnDataOr404(res, data);
         })
         .catch(err => {
             next(err);
@@ -115,7 +115,7 @@ function readEvent(req, res, next) {
 }
 
 function readJoinedUsers(req, res, next) {      // user.firstlastname
-    db.oneOrNone("SELECT * FROM JoinedUser WHERE eventID=${id}", req.params)
+    db.many("SELECT * FROM JoinedUser WHERE eventID=${id}", req.params)
         .then(data => {
             res.send(data);
         })
