@@ -115,7 +115,7 @@ function readEvent(req, res, next) {
 }
 
 function readJoinedUsers(req, res, next) {      // user.firstlastname
-    db.many("SELECT * FROM JoinedUser WHERE eventID=${id}", req.params)
+    db.many("SELECT firstName, lastName, status, seats FROM JoinedUser, TheUser WHERE TheUser.ID=userID AND eventID=${id}", req.params)
         .then(data => {
             res.send(data);
         })
