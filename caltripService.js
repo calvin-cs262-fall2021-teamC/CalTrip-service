@@ -166,7 +166,7 @@ function findUser(req, res, next) {
 }
 
 function deleteUser(req, res, next) {
-  db.one('DELETE FROM TheUser WHERE emailAddress=${emailAddress}', req.body)
+  db.one('DELETE FROM TheUser WHERE emailAddress=${emailAddress} AND lastName=${lastName} AND firstName=${firstName} AND password=${password}', req.body)
     .then(data => {
         returnDataOr404(res, data);
       })
