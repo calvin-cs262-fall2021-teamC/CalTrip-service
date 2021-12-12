@@ -166,7 +166,7 @@ function findUser(req, res, next) {
 }
 
 function deleteUser(req, res, next) {
-  db.one('DELETE FROM TheUser, JoinedUser WHERE TheUser.ID = JoinedUser.userID AND emailAddress=${emailAddress}', req.body)
+  db.one('DELETE TheUser, JoinedUser FROM TheUser INNER JOIN JoinedUser ON TheUser.ID = JoinedUser.userID WHERE emailAddress=${emailAddress}', req.body)
     .then(data => {
         returnDataOr404(res, data);
       })
