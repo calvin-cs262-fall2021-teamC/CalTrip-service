@@ -95,7 +95,7 @@ function createUser(req, res, next) {
 }
 
 function readEvents(req, res, next) {
-    db.many("SELECT * FROM TheEvent ORDER BY startDate ASC")
+    db.many("SELECT *, CAST(startdate AS DATE), CAST(enddate AS DATE) FROM TheEvent ORDER BY startDate ASC")
         .then(data => {
             res.send(data);
         })
@@ -105,7 +105,7 @@ function readEvents(req, res, next) {
 }
 
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT *, CAST(startdate AS DATE), CAST(enddate AS DATE) FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
