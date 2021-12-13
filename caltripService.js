@@ -135,7 +135,7 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
 // }
 
 function createJoinedUsers(req, res, next) {
-    db.one('INSERT INTO JoinedUser(userID, status, seats) VALUES (${userID}, ${status}, ${seats}) RETURNING id, userID, status, seats', req.body)
+    db.one('INSERT INTO JoinedUser(eventID, userID, status, seats) VALUES (${eventID}, ${userID}, ${status}, ${seats}) RETURNING id, userID, status, seats', req.body)
         .then(data => {
             res.send(data);
         })
