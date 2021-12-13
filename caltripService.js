@@ -41,6 +41,7 @@ router.get("/users", readUsers);
 router.get("/events", readEvents);
 router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
+router.get("/users", readUser);
 
 router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
@@ -115,6 +116,16 @@ function readEvent(req, res, next) {
         });
 }
 
+function readUser(req, res, next) {
+  db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress}', req.body)
+  .then(data => {
+      returnDataOr404(res, data);
+    })
+    .catch(err => {
+      next(err);
+    });
+}
+
 function readJoinedUsers(req, res, next) {      // user.firstlastname
     db.many("SELECT firstName, lastName, status, seats FROM JoinedUser, TheUser WHERE TheUser.ID=userID AND eventID=${id}", req.params)
         .then(data => {
@@ -167,11 +178,8 @@ function findUser(req, res, next) {
 
 
 function deleteUser(req, res, next) {
-  console.log('req', req);
   db.any('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
     .then(data => {
-      console.log('data', data);
-      console.log('res', res);
         returnDataOr404(res, data);
       })
       .catch(err => {
