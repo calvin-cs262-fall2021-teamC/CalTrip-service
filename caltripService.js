@@ -46,7 +46,7 @@ router.get("/events/:id", readEvent);
 router.post("/events", createEvent);
 router.post("/users", createUser);
 router.post("/user", findUser);
-// router.post("/events/:id/users", createJoinedUsers);
+router.post("/events/:id/users", createJoinedUsers);
 
 
 app.use(router);
@@ -134,15 +134,15 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
 //         });
 // }
 
-// function createJoinedUsers(req, res, next) {
-//     db.one('INSERT INTO JoinedUser(status, seats) VALUES (${userID}, ${status}, ${seats} ) RETURNING id, userID, status, seats', req.body)
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
+function createJoinedUsers(req, res, next) {
+    db.one('INSERT INTO JoinedUser(userID, status, seats) VALUES (${userID}, ${status}, ${seats}) RETURNING id, userID, status, seats', req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err);
+        });
+}
 
 function createEvent(req, res, next) {
     db.one('INSERT INTO TheEvent(title, description, startDate, endDate, location, price, category) VALUES (${title}, ${description}, ${startDate}, ${endDate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, startDate, endDate, location, price, category', req.body)
