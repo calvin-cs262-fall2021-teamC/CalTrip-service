@@ -107,7 +107,7 @@ function readEvents(req, res, next) {
 }
 
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT *, CAST(startDate AS DATE), CAST(endDate AS DATE) FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT *, startDate::TIMESTAMP::DATE, endDate::TIMESTAMP::DATE FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
