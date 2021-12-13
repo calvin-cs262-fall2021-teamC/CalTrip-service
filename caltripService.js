@@ -48,6 +48,7 @@ router.post("/users", createUser);
 router.post("/user", findUser);
 router.post("/events/:id/users", createJoinedUsers);
 
+router.delete("/users", deleteUser);
 
 app.use(router);
 app.use(errorHandler);
@@ -162,4 +163,15 @@ function findUser(req, res, next) {
     .catch(err => {
         next(err);
     });
+}
+
+
+function deleteUser(req, res, next) {
+  db.one('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
+    .then(data => {
+        returnDataOr404(res, data);
+      })
+      .catch(err => {
+        next(err);
+      });
 }
