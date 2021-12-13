@@ -23,7 +23,7 @@ CREATE TABLE TheEvent (
     ID SERIAL PRIMARY KEY,
     title varchar(50) NOT NULL,
     description varchar(300) NOT NULL,
-    startDate date NOT NULL,
+    startDate timestamp NOT NULL,
     endDate date NOT NULL,
     location varchar(50) NOT NULL,
     price varchar(50) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE TheEvent (
 
 CREATE TABLE JoinedUser (
     ID SERIAL PRIMARY KEY,
-    userID integer REFERENCES TheUser(ID),
+    userID integer REFERENCES TheUser(ID) ON DELETE CASCADE,
 	eventID integer REFERENCES TheEvent(ID),
     status varchar(50),                             -- rider or driver
     seats integer
