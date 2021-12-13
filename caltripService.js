@@ -95,7 +95,7 @@ function createUser(req, res, next) {
 }
 
 function readEvents(req, res, next) {
-    db.many("SELECT id, title, description, startdate, location, price, category FROM TheEvent ORDER BY startdate ASC")
+    db.many("SELECT * FROM TheEvent ORDER BY startdate ASC")
         .then(data => {
             res.send(data);
         })
@@ -105,7 +105,7 @@ function readEvents(req, res, next) {
 }
 
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT id, title, description, startdate, location, price, category FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
