@@ -32,7 +32,7 @@ CREATE TABLE TheEvent (
 
 CREATE TABLE JoinedUser (
     ID SERIAL PRIMARY KEY,
-    userID integer REFERENCES TheUser(ID),
+    userID integer REFERENCES TheUser(ID) ON DELETE CASCADE,
 	eventID integer REFERENCES TheEvent(ID),
     status varchar(50),                             -- rider or driver
     seats integer
