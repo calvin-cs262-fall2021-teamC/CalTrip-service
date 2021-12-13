@@ -95,7 +95,7 @@ function createUser(req, res, next) {
 }
 
 function readEvents(req, res, next) {
-    db.many("SELECT id, title, description, startdate, location, price, category FROM TheEvent ORDER BY date ASC")
+    db.many("SELECT id, title, description, startdate, location, price, category FROM TheEvent ORDER BY startdate ASC")
         .then(data => {
             res.send(data);
         })
