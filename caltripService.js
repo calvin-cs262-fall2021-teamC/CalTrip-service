@@ -42,7 +42,7 @@ router.get("/events", readEvents);
 router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
 
-// router.put("/events/:id", updateEvent);
+router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
 router.post("/users", createUser);
 router.post("/user", findUser);
@@ -124,15 +124,15 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
         });
 }
 
-// function updateEvent(req, res, next) {
-//     db.oneOrNone('UPDATE Event SET name=${body.name}, description=${body.description}, location=${body.location}, price=${body.price} WHERE id=${params.id} RETURNING id', req)
-//         .then(data => {
-//             returnDataOr404(res, data);
-//         })
-//         .catch(err => {
-//             next(err);
-//         });
-// }
+function updateEvent(req, res, next) {
+    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, startDate=${body.startDate}, endDate=${body.endDate}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id', req)
+        .then(data => {
+            returnDataOr404(res, data);
+        })
+        .catch(err => {
+            next(err);
+        });
+}
 
 function createJoinedUsers(req, res, next) {
     db.one('INSERT INTO JoinedUser(eventID, userID, status, seats) VALUES (${eventID}, ${userID}, ${status}, ${seats}) RETURNING id, userID, status, seats', req.body)
