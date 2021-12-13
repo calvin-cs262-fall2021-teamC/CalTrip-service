@@ -167,7 +167,7 @@ function findUser(req, res, next) {
 
 
 function deleteUser(req, res, next) {
-  db.one('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
+  db.any('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
     .then(data => {
         res.send(data);
       })
