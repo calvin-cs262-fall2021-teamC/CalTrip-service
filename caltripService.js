@@ -95,7 +95,7 @@ function createUser(req, res, next) {
 }
 
 function readEvents(req, res, next) {
-    db.many("SELECT id, title, description, date, location, price, category FROM TheEvent ORDER BY date ASC")
+    db.many("SELECT id, title, description, startdate, location, price, category FROM TheEvent ORDER BY date ASC")
         .then(data => {
             res.send(data);
         })
@@ -105,7 +105,7 @@ function readEvents(req, res, next) {
 }
 
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT id, title, description, date, location, price, category FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT id, title, description, startdate, location, price, category FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
@@ -125,7 +125,7 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
 }
 
 function updateEvent(req, res, next) {
-    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, date=${body.date}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id, title, description, date, location, price, category', req)
+    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, startdate=${body.startdate}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id, title, description, startdate, location, price, category', req)
         .then(data => {
             returnDataOr404(res, data);
         })
@@ -145,7 +145,7 @@ function createJoinedUsers(req, res, next) {
 }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(title, description, date, location, price, category) VALUES (${title}, ${description}, ${date}, ${location}, ${price}, ${category} ) RETURNING id, title, description, date, location, price, category', req.body)
+    db.one('INSERT INTO TheEvent(title, description, startdate, location, price, category) VALUES (${title}, ${description}, ${startdate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, startdate, location, price, category', req.body)
         .then(data => {
             res.send(data);
         })
