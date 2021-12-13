@@ -41,7 +41,7 @@ router.get("/users", readUsers);
 router.get("/events", readEvents);
 router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
-router.get("/user", readUser);
+router.get("/users/:emailAddress", readUser);
 
 router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
@@ -117,7 +117,7 @@ function readEvent(req, res, next) {
 }
 
 function readUser(req, res, next) {
-  db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress}', req.body)
+  db.one('SELECT * FROM TheUser WHERE emailAddress=${emailAddress}', req.params)
   .then(data => {
       returnDataOr404(res, data);
     })
