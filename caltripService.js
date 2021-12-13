@@ -1,21 +1,14 @@
 /**
- * This module implements a REST-inspired webservice for the Monopoly DB.
+ * This module implements a REST-inspired webservice for the CalTrip DB.
  * The database is hosted on ElephantSQL.
  *
- * Currently, the service supports the player table only.
- *
- * To guard against SQL injection attacks, this code uses pg-promise's built-in
- * variable escaping. This prevents a client from issuing this URL:
- *     https://cs262-monopoly-service.herokuapp.com/players/1%3BDELETE%20FROM%20PlayerGame%3BDELETE%20FROM%20Player
- * which would delete records in the PlayerGame and then the Player tables.
- * In particular, we don't use JS template strings because it doesn't filter
- * client-supplied values properly.
+ * Currently, the service supports the user, event, and joinedUser table .
  *
  * TODO: Consider using Prepared Statements.
  *      https://vitaly-t.github.io/pg-promise/PreparedStatement.html
  *
- * @author: kvlinden
- * @date: Summer, 2020
+ * @author: CalTrip
+ * @date: December 12, 2021
  */
 
 // Set up the database connection.
@@ -76,6 +69,7 @@ function readHelloMessage(req, res) {
     res.send('Hello, CS 262 CalTrip service!');
 }
 
+// Retrieves the information of users
 function readUsers(req, res, next) {
     db.many("SELECT * FROM TheUser")
         .then(data => {
@@ -86,6 +80,7 @@ function readUsers(req, res, next) {
         })
 }
 
+// Creates an account
 function createUser(req, res, next) {
     db.one('INSERT INTO TheUser(firstName, lastName, emailAddress, password) VALUES (${firstName}, ${lastName}, ${emailAddress}, ${password}) RETURNING id, firstName, lastName, emailAddress, password', req.body)
         .then(data => {
@@ -96,8 +91,9 @@ function createUser(req, res, next) {
         });
 }
 
+// Retrieves the information of events and list in ascending order by date 
 function readEvents(req, res, next) {
-    db.many("SELECT * FROM TheEvent ORDER BY startdate ASC")
+    db.many("SELECT id, title, description, TO_CHAR(startdate::DATE, 'yyyy/mm/dd'), location, price, category FROM TheEvent ORDER BY startDate ASC")
         .then(data => {
             res.send(data);
         })
@@ -106,8 +102,9 @@ function readEvents(req, res, next) {
         });
 }
 
+// Retrieves the information of an event
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT id, title, description, TO_CHAR(startdate::DATE, 'yyyy/mm/dd'), location, price, category FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
@@ -125,8 +122,9 @@ function readUser(req, res, next) {
       next(err);
     });
 }
-
-function readJoinedUsers(req, res, next) {      // user.firstlastname
+  
+// Retrieves a list of users who have joined the event
+function readJoinedUsers(req, res, next) {
     db.many("SELECT firstName, lastName, status, seats FROM JoinedUser, TheUser WHERE TheUser.ID=userID AND eventID=${id}", req.params)
         .then(data => {
             res.send(data);
@@ -146,6 +144,7 @@ function updateEvent(req, res, next) {
         });
 }
 
+// Saves information of joined users 
 function createJoinedUsers(req, res, next) {
     db.one('INSERT INTO JoinedUser(eventID, userID, status, seats) VALUES (${eventID}, ${userID}, ${status}, ${seats}) RETURNING id, userID, status, seats', req.body)
         .then(data => {
@@ -156,6 +155,7 @@ function createJoinedUsers(req, res, next) {
         });
 }
 
+// Creates a new event
 function createEvent(req, res, next) {
     db.one('INSERT INTO TheEvent(title, description, startdate, location, price, category) VALUES (${title}, ${description}, ${startdate}, ${location}, ${price}, ${category} ) RETURNING id, title, description, startdate, location, price, category', req.body)
         .then(data => {
