@@ -1,5 +1,5 @@
 /**
- * This module implements direct, Android-to-Postgres access to the Monopoly DB.
+ * This module implements direct, Android-to-Postgres access to the CalTrip DB.
  * The database is hosted on ElephantSQL.
  *
  * Because the PGP connection variables are stored as Heroku config vars, store
@@ -9,8 +9,8 @@
  *
  *      heroku local direct
  *
- * @author: kvlinden
- * @date: Summer, 2020
+ * @author: CalTrip
+ * @date: December 12, 2021
  */
 
 // Set up the database connection.
@@ -24,12 +24,3 @@ const db = pgp({
     // For SSL, see: https://stackoverflow.com/questions/22301722/ssl-for-postgresql-connection-nodejs
     ssl: true,
 });
-
-// // Send the SQL command directly to Postgres.
-// db.many("SELECT * FROM Player")
-//     .then(function (data) {
-//         console.log(data);
-//     })
-//     .catch(function (error) {
-//         console.log('ERROR:', error)
-//     });
