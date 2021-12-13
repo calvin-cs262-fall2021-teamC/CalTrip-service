@@ -125,7 +125,7 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
 }
 
 function updateEvent(req, res, next) {
-    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, startDate=${body.startDate}, endDate=${body.endDate}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id', req)
+    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, startDate=${body.startDate}, endDate=${body.endDate}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id, title, description, startDate, endDate, location, price, category', req)
         .then(data => {
             returnDataOr404(res, data);
         })
