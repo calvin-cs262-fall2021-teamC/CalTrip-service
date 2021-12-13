@@ -91,7 +91,7 @@ function createUser(req, res, next) {
 
 // Retrieves the information of events and list in ascending order by date 
 function readEvents(req, res, next) {
-    db.many("SELECT * FROM TheEvent ORDER BY startdate ASC")
+    db.many("SELECT id, title, description, TO_CHAR(startdate::DATE, 'yyyy/mm/dd'), location, price, category FROM TheEvent ORDER BY startDate ASC")
         .then(data => {
             res.send(data);
         })
@@ -102,7 +102,7 @@ function readEvents(req, res, next) {
 
 // Retrieves the information of an event
 function readEvent(req, res, next) {
-    db.oneOrNone("SELECT * FROM TheEvent WHERE id=${id}", req.params)
+    db.oneOrNone("SELECT id, title, description, TO_CHAR(startdate::DATE, 'yyyy/mm/dd'), location, price, category FROM TheEvent WHERE id=${id}", req.params)
         .then(data => {
             returnDataOr404(res, data);
         })
