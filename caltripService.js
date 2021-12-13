@@ -167,8 +167,11 @@ function findUser(req, res, next) {
 
 
 function deleteUser(req, res, next) {
+  console.log('req', req);
   db.any('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
     .then(data => {
+      console.log('data', data);
+      console.log('res', res);
         returnDataOr404(res, data);
       })
       .catch(err => {
