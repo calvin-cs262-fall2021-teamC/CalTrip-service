@@ -2,7 +2,7 @@
 -- This SQL script builds a CalTrip database, deleting any pre-existing version.
 --
 -- @author yy36, kk58
--- @date December 01, 2021
+-- @date December 13, 2021
 --
 
 -- Drop previous versions of the tables if they they exist, in reverse order of foreign keys.
