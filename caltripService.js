@@ -137,7 +137,7 @@ function readJoinedUsers(req, res, next) {      // user.firstlastname
 }
 
 function updateEvent(req, res, next) {
-    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, date=${body.date}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id, title, description, startDate, endDate, location, price, category', req)
+    db.oneOrNone('UPDATE TheEvent SET title=${body.title}, description=${body.description}, date=${body.date}, location=${body.location}, price=${body.price}, category=${body.category} WHERE id=${params.id} RETURNING id, title, description, date, location, price, category', req)
         .then(data => {
             returnDataOr404(res, data);
         })
@@ -157,7 +157,7 @@ function createJoinedUsers(req, res, next) {
 }
 
 function createEvent(req, res, next) {
-    db.one('INSERT INTO TheEvent(title, description, date, location, price, category) VALUES (${title}, ${description}, ${date}, ${location}, ${price}, ${category} ) RETURNING id, title, description, startDate, endDate, location, price, category', req.body)
+    db.one('INSERT INTO TheEvent(title, description, date, location, price, category) VALUES (${title}, ${description}, ${date}, ${location}, ${price}, ${category} ) RETURNING id, title, description, date, location, price, category', req.body)
         .then(data => {
             res.send(data);
         })
