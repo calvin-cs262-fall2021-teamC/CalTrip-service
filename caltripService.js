@@ -41,7 +41,7 @@ router.get("/users", readUsers);
 router.get("/events", readEvents);
 router.get("/events/:id/users", readJoinedUsers);
 router.get("/events/:id", readEvent);
-router.get("/users", readUser);
+router.get("/user", readUser);
 
 router.put("/events/:id", updateEvent);
 router.post("/events", createEvent);
