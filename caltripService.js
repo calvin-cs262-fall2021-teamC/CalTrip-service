@@ -169,7 +169,7 @@ function findUser(req, res, next) {
 function deleteUser(req, res, next) {
   db.one('DELETE FROM TheUser WHERE emailAddress=${emailAddress};', req.body)
     .then(data => {
-        returnDataOr404(res, data);
+        res.send(data);
       })
       .catch(err => {
         next(err);
